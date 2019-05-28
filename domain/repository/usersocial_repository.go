@@ -8,9 +8,12 @@
 
 package repository
 
-import "github.com/oktopriima/mark-i/domain/model"
+import (
+	"github.com/jinzhu/gorm"
+	"github.com/oktopriima/mark-i/domain/model"
+)
 
 type UserSocialRepository interface {
 	FindOneBy(criteria map[string]interface{}) (*model.UserSocial, error)
-	Create(social *model.UserSocial) (*model.UserSocial, error)
+	Create(social *model.UserSocial, tx *gorm.DB) (*model.UserSocial, error)
 }

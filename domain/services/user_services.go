@@ -11,9 +11,9 @@ package services
 import (
 	"encoding/json"
 
+	"github.com/jinzhu/gorm"
 	"github.com/oktopriima/mark-i/domain/model"
 	"github.com/oktopriima/mark-i/domain/repository"
-	"github.com/jinzhu/gorm"
 )
 
 type userServices struct {
@@ -24,8 +24,9 @@ func NewUserServices(db *gorm.DB) repository.UserRepository {
 	return &userServices{db}
 }
 
-func (srv *userServices) Create(users *model.Users) (m *model.Users, err error) {
-	db := srv.db.Create(&users)
+func (srv *userServices) Create(users *model.Users, tx *gorm.DB) (m *model.Users, err error) {
+	db := tx.Create(&users)
+
 	if err = db.Error; err != nil {
 		return
 	}

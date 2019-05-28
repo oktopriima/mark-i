@@ -26,15 +26,15 @@ func NewUserSocialServices(db *gorm.DB) repository.UserSocialRepository {
 
 func (srv *userSocialServices) FindOneBy(criteria map[string]interface{}) (*model.UserSocial, error) {
 	m := new(model.UserSocial)
-	row := srv.db.Table("user_social").Select("*").Where(criteria).Row()
-	if err := row.Scan(&m.ID, &m.UserID, &m.SocialMedia, &m.SocialID, &m.CreatedAt, &m.UpdatedAt); err != nil {
+	row := srv.db.Table("user_socials").Select("*").Where(criteria).Row()
+	if err := row.Scan(&m.ID, &m.UsersID, &m.SocialName, &m.SocialID, &m.CreatedAt, &m.UpdatedAt); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (srv *userSocialServices) Create(social *model.UserSocial) (m *model.UserSocial, err error) {
-	db := srv.db.Create(&social)
+func (srv *userSocialServices) Create(social *model.UserSocial, tx *gorm.DB) (m *model.UserSocial, err error) {
+	db := tx.Create(&social)
 	if err = db.Error; err != nil {
 		return
 	}
