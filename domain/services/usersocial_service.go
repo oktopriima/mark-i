@@ -26,7 +26,7 @@ func NewUserSocialServices(db *gorm.DB) repository.UserSocialRepository {
 
 func (srv *userSocialServices) FindOneBy(criteria map[string]interface{}) (*model.UserSocial, error) {
 	m := new(model.UserSocial)
-	row := srv.db.Table("user_social_medias").Select("*").Where(criteria).Row()
+	row := srv.db.Table("user_social").Select("*").Where(criteria).Row()
 	if err := row.Scan(&m.ID, &m.UserID, &m.SocialMedia, &m.SocialID, &m.CreatedAt, &m.UpdatedAt); err != nil {
 		return nil, err
 	}
