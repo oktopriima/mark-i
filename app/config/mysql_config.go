@@ -9,8 +9,6 @@
 package config
 
 import (
-	"fmt"
-
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -26,8 +24,6 @@ func NewMysqlConfig(cfg Config) (err error, db *gorm.DB) {
 	if err != nil {
 		panic("failed connect to database")
 	}
-
-	fmt.Println("sukses connect")
 
 	return err, db
 }
