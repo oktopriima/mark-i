@@ -1,0 +1,45 @@
+/*
+ * Copyright (c) 2019
+ * Created at 5/20/19 11:02 PM
+ * Created by oktoprima
+ * Email octoprima93@gmail.com
+ * Github https://github.com/oktopriima
+ */
+
+package router
+
+import (
+	"github.com/oktopriima/mark-i/httphandler/auth"
+	"github.com/oktopriima/mark-i/httphandler/user"
+	"github.com/oktopriima/mark-i/libraries/middleware"
+	"github.com/gin-gonic/gin"
+)
+
+func InvokeRoute(
+	engine *gin.Engine,
+	auth auth.Handler,
+	user user.Handler,
+) {
+
+	markone := engine.Group("api/beta")
+	markone.Use(gin.Logger())
+	markone.Use(gin.Recovery())
+	markone.Use(gin.ErrorLogger())
+
+	/** auth route group */
+	{
+		authroute := markone.Group("auth")
+		authroute.POST("/google", auth.GoogleLoginHandle)
+		authroute.POST("/facebook", auth.FacebookLoginHandle)
+		authroute.POST("/phone", auth.PhoneLoginHandler)
+		authroute.POST("/email", auth.EmailLoginHandler)
+	}
+
+	/** profile route group */
+	{
+		me := markone.Group("me")
+		me.Use(middleware.MyAuth(true))
+		me.GET("", user.FindHandler)
+	}
+
+}

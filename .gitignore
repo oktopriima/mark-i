@@ -1,0 +1,43 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+tatgs
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+
+*.out
+mark-one*
+vendor
+env.json
+app.log
+
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+bin
+deploy
+deploy/bin*
+
+# local history from visual studio code
+.history
+
+# glide componen
+glide.lock
+tags
+/.idea
+/.idea/codeStyles/codeStyleConfig.xml
+.vscode
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
+/.idea/copyright/glast.xml
+/.idea/copyright/profiles_settings.xml
