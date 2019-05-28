@@ -1,6 +1,6 @@
 -- +migrate Up
 
-CREATE TABLE IF NOT EXISTS `mark-one`.`user_social`
+CREATE TABLE IF NOT EXISTS `mark-one`.`user_socials`
 (
     `id`          INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `users_id`    INT UNSIGNED NOT NULL,
@@ -20,4 +20,4 @@ CREATE TABLE IF NOT EXISTS `mark-one`.`user_social`
 
 -- +migrate Down
 
-DROP TABLE IF EXISTS `mark-one`.`user_social`;
+DROP TABLE IF EXISTS `mark-one`.`user_socials`;

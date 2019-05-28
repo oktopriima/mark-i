@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `mark-one`.`users`
     `email`           VARCHAR(255) NOT NULL,
     `phone`           VARCHAR(255) NOT NULL,
     `password`        VARCHAR(255) NOT NULL,
-    `last_login`      VARCHAR(255) NOT NULL,
+    `last_login`      TIMESTAMP    NOT NULL,
     `secondary_email` VARCHAR(255) NOT NULL,
     `is_verified`     TINYINT      NOT NULL,
     `avatar`          VARCHAR(255) NOT NULL,
