@@ -18,7 +18,7 @@ type Users struct {
 	Username       string    `json:"username"`
 	Email          string    `json:"email"`
 	Phone          string    `json:"phone"`
-	Password       string    `json:"-"`
+	Password       string    `json:"password"`
 	LastLogin      time.Time `json:"last_login"`
 	SecondaryEmail string    `json:"secondary_email"`
 	IsVerified     bool      `json:"is_verified"`
