@@ -13,10 +13,10 @@ import (
 )
 
 type UserSocial struct {
-	ID          int       `json:"id"`
-	UserID      int64     `json:"user_id"`
-	SocialMedia string    `json:"social_media"`
-	SocialID    string    `json:"social_id"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	ID         int64     `json:"id"`
+	UsersID    int64     `json:"users_id"`
+	SocialName string    `json:"social_name"`
+	SocialID   string    `json:"social_id"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
