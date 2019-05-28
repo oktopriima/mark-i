@@ -24,7 +24,7 @@ app.log
 !.elasticbeanstalk/*.global.yml
 bin
 deploy
-deploy/bin*
+dbconfig.yml
 
 # local history from visual studio code
 .history
