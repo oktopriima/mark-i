@@ -2,7 +2,7 @@
 case $1 in
     start)
         echo "Starting Application"
-        ./mark-one > app.log &
+        ./mark-i > app.log &
         ;;
     stop)
         echo "Stoping Application"
@@ -12,7 +12,7 @@ case $1 in
         echo "Stoping Application"
         sudo kill $(sudo lsof -t -i:9000)
         echo "Starting Application"
-        ./mark-one > app.log &
+        ./mark-i > app.log &
         ;;
     *)
         echo "Golang app service"
