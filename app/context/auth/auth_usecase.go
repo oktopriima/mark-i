@@ -9,6 +9,7 @@
 package auth
 
 import (
+	"github.com/jinzhu/gorm"
 	"github.com/oktopriima/mark-i/domain/repository"
 )
 
@@ -52,12 +53,15 @@ type EmailLoginRequest interface {
 type authUsecase struct {
 	userRepo       repository.UserRepository
 	userSocialRepo repository.UserSocialRepository
+	db             *gorm.DB
 }
 
 func NewLoginUsecase(userRepo repository.UserRepository,
-	userSocialRepo repository.UserSocialRepository) AuthUsecase {
+	userSocialRepo repository.UserSocialRepository,
+	db *gorm.DB) AuthUsecase {
 	return &authUsecase{
 		userRepo,
 		userSocialRepo,
+		db,
 	}
 }
