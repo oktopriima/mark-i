@@ -16,6 +16,7 @@ type CreateRequest interface {
 }
 
 type CreateResponse interface {
+	GetData() *model.RoleUser
 }
 
 func (uc *usecase) Create(request CreateRequest) (CreateResponse, error) {
