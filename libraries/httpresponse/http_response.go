@@ -10,6 +10,7 @@ package httpresponse
 
 import (
 	"encoding/json"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,6 +21,11 @@ func NewErrorResponse(c *gin.Context, code int, err error) {
 	response.Message = err.Error()
 	response.ErrorCode = code
 	c.JSON(code, &response)
+	return
+}
+
+func NewSuccessResponse(c *gin.Context, data interface{}) {
+	c.JSON(http.StatusOK, data)
 	return
 }
 
