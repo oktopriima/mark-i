@@ -28,5 +28,5 @@ func (h *handler) GoogleLoginHandle(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, resp)
+	httpresponse.NewSuccessResponse(ctx, resp)
 }

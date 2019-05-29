@@ -28,5 +28,5 @@ func (h *handler) EmailLoginHandler(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, resp)
+	httpresponse.NewSuccessResponse(ctx, resp)
 }

@@ -28,5 +28,5 @@ func (h *handler) PhoneLoginHandler(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, resp)
+	httpresponse.NewSuccessResponse(ctx, resp)
 }
