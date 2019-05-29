@@ -20,7 +20,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func (uc *authUsecase) GoogleLogin(request AuthRequest) (AuthResponse, error) {
+func (uc *usecase) GoogleLogin(request AuthRequest) (AuthResponse, error) {
 	/** get google data */
 	gResp, err := helper.GetGoogleData(request.GetSocialToken())
 	if err != nil {
@@ -38,7 +38,7 @@ func (uc *authUsecase) GoogleLogin(request AuthRequest) (AuthResponse, error) {
 			return nil, err
 		}
 
-		_, err = uc.registerSocialMedia(user, gResp.ID, request, tx);
+		_, err = uc.createSocialMedia(user, gResp.ID, request, tx);
 		if err != nil {
 			tx.Rollback()
 			return nil, err
@@ -75,7 +75,7 @@ func (uc *authUsecase) GoogleLogin(request AuthRequest) (AuthResponse, error) {
 	return token, nil
 }
 
-func (uc *authUsecase) registerFromGoogle(gResp helper.GoogleResponse, tx *gorm.DB) (*model.Users, error) {
+func (uc *usecase) registerFromGoogle(gResp helper.GoogleResponse, tx *gorm.DB) (*model.Users, error) {
 	pass, err := bcrypt.GenerateFromPassword([]byte(helper.RandString(10)), bcrypt.DefaultCost)
 	if err != nil {
 		return nil, err
@@ -98,47 +98,4 @@ func (uc *authUsecase) registerFromGoogle(gResp helper.GoogleResponse, tx *gorm.
 	} else {
 		return m, nil
 	}
-}
-
-func (uc *authUsecase) registerSocialMedia(
-	users *model.Users,
-	socialID string,
-	request AuthRequest,
-	tx *gorm.DB) (*model.UserSocial, error) {
-
-	m := new(model.UserSocial)
-	m.UsersID = users.ID
-	m.SocialID = socialID
-	m.SocialName = request.GetSocialType()
-	m.CreatedAt = time.Now()
-	m.UpdatedAt = time.Now()
-
-	if m, err := uc.userSocialRepo.Create(m, tx); err != nil {
-		return nil, err
-	} else {
-		return m, nil
-	}
-}
-
-func (uc *authUsecase) getUserSocial(socialID string) (m *model.UserSocial, err error) {
-	criteria := make(map[string]interface{})
-	criteria["social_id"] = socialID
-
-	m, err = uc.userSocialRepo.FindOneBy(criteria)
-	return
-}
-
-func (uc *authUsecase) getUserByEmail(email string) (m *model.Users, err error) {
-	criteria := make(map[string]interface{})
-	criteria["email"] = email
-
-	m, err = uc.userRepo.FindOneBy(criteria)
-	return
-}
-
-func (uc *authUsecase) updateLastLogin(users *model.Users) (err error) {
-	users.LastLogin = time.Now()
-
-	err = uc.userRepo.Update(users)
-	return
 }

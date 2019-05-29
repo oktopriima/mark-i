@@ -18,7 +18,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func (uc *authUsecase) PhoneLogin(request PhoneLoginRequest) (AuthResponse, error) {
+func (uc *usecase) PhoneLogin(request PhoneLoginRequest) (AuthResponse, error) {
 
 	phone := helper.NewPhoneNumber(request.GetPhone())
 	user, err := uc.getUserByPhone(phone.GetPhoneNumber())
@@ -50,7 +50,7 @@ func (uc *authUsecase) PhoneLogin(request PhoneLoginRequest) (AuthResponse, erro
 	return token, nil
 }
 
-func (uc *authUsecase) getUserByPhone(phone string) (*model.Users, error) {
+func (uc *usecase) getUserByPhone(phone string) (*model.Users, error) {
 	criteria := make(map[string]interface{})
 	criteria["phone"] = phone
 	criteria["is_verified"] = true

@@ -16,7 +16,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func (uc *authUsecase) EmailLogin(request EmailLoginRequest) (AuthResponse, error) {
+func (uc *usecase) EmailLogin(request EmailLoginRequest) (AuthResponse, error) {
 	user, err := uc.getUserByEmail(request.GetEmail())
 	if err != nil {
 		return nil, err

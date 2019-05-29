@@ -9,9 +9,8 @@
 package auth
 
 import (
-	"github.com/oktopriima/mark-i/app/context/auth"
-	"github.com/oktopriima/mark-i/libraries/httpresponse"
 	"github.com/gin-gonic/gin"
+	"github.com/oktopriima/mark-i/app/context/auth"
 )
 
 type Handler interface {
@@ -22,11 +21,9 @@ type Handler interface {
 }
 
 type handler struct {
-	kll httpresponse.KulinaRequestReader
-	uc  auth.AuthUsecase
+	uc auth.Usecase
 }
 
-func NewHandler(reader httpresponse.KulinaRequestReader,
-	uc auth.AuthUsecase) Handler {
-	return &handler{reader, uc}
+func NewHandler(uc auth.Usecase) Handler {
+	return &handler{uc}
 }

@@ -20,7 +20,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func (uc *authUsecase) FacebookLogin(request AuthRequest) (AuthResponse, error) {
+func (uc *usecase) FacebookLogin(request AuthRequest) (AuthResponse, error) {
 	fResp, err := helper.GetFacebookData(request.GetSocialToken())
 	if err != nil {
 		return nil, err
@@ -36,7 +36,7 @@ func (uc *authUsecase) FacebookLogin(request AuthRequest) (AuthResponse, error) 
 			return nil, err
 		}
 
-		if _, err = uc.registerSocialMedia(user, fResp.ID, request, tx); err != nil {
+		if _, err = uc.createSocialMedia(user, fResp.ID, request, tx); err != nil {
 			tx.Rollback()
 			return nil, err
 		}
@@ -71,7 +71,7 @@ func (uc *authUsecase) FacebookLogin(request AuthRequest) (AuthResponse, error) 
 	return token, nil
 }
 
-func (uc *authUsecase) registerFromFacebook(response *helper.FacebookResponse, tx *gorm.DB) (*model.Users, error) {
+func (uc *usecase) registerFromFacebook(response *helper.FacebookResponse, tx *gorm.DB) (*model.Users, error) {
 	pass, _ := bcrypt.GenerateFromPassword([]byte(helper.RandString(10)), bcrypt.DefaultCost)
 
 	m := new(model.Users)
