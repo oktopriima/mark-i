@@ -22,5 +22,5 @@ func (h *handler) GenerateHandler(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, resp.GetData())
+	httpresponse.NewSuccessResponse(ctx, resp.GetData())
 }
