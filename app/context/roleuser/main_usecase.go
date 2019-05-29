@@ -15,6 +15,7 @@ import (
 
 type Usecase interface {
 	Create(request CreateRequest) (CreateResponse, error)
+	Delete(request DeleteRequest) (DeleteResponse, error)
 }
 
 type usecase struct {

@@ -15,6 +15,7 @@ import (
 
 type Handler interface {
 	CreateHandler(ctx *gin.Context)
+	DeleteHandler(ctx *gin.Context)
 }
 
 type handler struct {

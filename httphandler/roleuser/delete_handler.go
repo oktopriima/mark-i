@@ -17,11 +17,20 @@ import (
 )
 
 func (h *handler) DeleteHandler(ctx *gin.Context) {
+	var request deleteRequest
 	ID, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
 		httpresponse.NewErrorResponse(ctx, http.StatusForbidden, err)
 		return
 	}
 
-	resp, err := h.uc.
+	request.ID = int64(ID)
+
+	resp, err := h.uc.Delete(request)
+	if err != nil {
+		httpresponse.NewErrorResponse(ctx, http.StatusUnprocessableEntity, err)
+		return
+	}
+
+	httpresponse.NewSuccessResponse(ctx, resp)
 }
