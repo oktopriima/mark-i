@@ -23,18 +23,18 @@ func NewErrorResponse(c *gin.Context, code int, err error) {
 	return
 }
 
-type KulinaRequestReader interface {
+type RequestReader interface {
 	GetJsonForm(c *gin.Context, data interface{}) (err error)
 }
 
-type kulinaRequestReader struct {
+type requestReader struct {
 }
 
-func NewKulinaRequestReader() KulinaRequestReader {
-	return &kulinaRequestReader{}
+func NewRequestReader() RequestReader {
+	return &requestReader{}
 }
 
-func (krr *kulinaRequestReader) GetJsonForm(c *gin.Context, data interface{}) (err error) {
+func (krr *requestReader) GetJsonForm(c *gin.Context, data interface{}) (err error) {
 	err = json.NewDecoder(c.Request.Body).Decode(data)
 	return
 }
