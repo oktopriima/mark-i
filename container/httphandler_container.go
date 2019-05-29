@@ -11,6 +11,7 @@ package container
 import (
 	"github.com/oktopriima/mark-i/httphandler/auth"
 	"github.com/oktopriima/mark-i/httphandler/role"
+	"github.com/oktopriima/mark-i/httphandler/roleuser"
 	"github.com/oktopriima/mark-i/httphandler/user"
 	"go.uber.org/dig"
 )
@@ -27,6 +28,10 @@ func BuildHttpHandlerProvider(container *dig.Container) *dig.Container {
 	}
 
 	if err = container.Provide(role.NewHandler); err != nil {
+		panic(err)
+	}
+
+	if err = container.Provide(roleuser.NewHandler); err != nil {
 		panic(err)
 	}
 

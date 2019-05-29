@@ -11,6 +11,7 @@ package container
 import (
 	"github.com/oktopriima/mark-i/app/context/auth"
 	"github.com/oktopriima/mark-i/app/context/role"
+	"github.com/oktopriima/mark-i/app/context/roleuser"
 	"github.com/oktopriima/mark-i/app/context/user"
 	"go.uber.org/dig"
 )
@@ -28,6 +29,10 @@ func BuildUsecaseProvider(container *dig.Container) *dig.Container {
 	}
 
 	if err = container.Provide(role.NewUsecase); err != nil {
+		panic(err)
+	}
+
+	if err = container.Provide(roleuser.NewUsecase); err != nil {
 		panic(err)
 	}
 	return container
