@@ -11,7 +11,7 @@ package user
 type FindResponse interface {
 }
 
-func (uc *userUsecase) Find(ID int64) (FindResponse, error) {
+func (uc *usecase) Find(ID int64) (FindResponse, error) {
 	users, err := uc.userRepo.Find(ID)
 	if err != nil {
 		return nil, err

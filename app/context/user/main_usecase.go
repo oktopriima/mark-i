@@ -10,14 +10,14 @@ package user
 
 import "github.com/oktopriima/mark-i/domain/repository"
 
-type UserUsecase interface {
+type Usecase interface {
 	Find(ID int64) (FindResponse, error)
 }
 
-type userUsecase struct {
+type usecase struct {
 	userRepo repository.UserRepository
 }
 
-func NewUserUsecase(userRepo repository.UserRepository) UserUsecase {
-	return &userUsecase{userRepo}
+func NewUsecase(userRepo repository.UserRepository) Usecase {
+	return &usecase{userRepo}
 }

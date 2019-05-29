@@ -9,9 +9,8 @@
 package user
 
 import (
-	"github.com/oktopriima/mark-i/app/context/user"
-	"github.com/oktopriima/mark-i/libraries/httpresponse"
 	"github.com/gin-gonic/gin"
+	"github.com/oktopriima/mark-i/app/context/user"
 )
 
 type Handler interface {
@@ -19,10 +18,9 @@ type Handler interface {
 }
 
 type handler struct {
-	kll httpresponse.KulinaRequestReader
-	uc  user.UserUsecase
+	uc user.Usecase
 }
 
-func NewHandler(kll httpresponse.KulinaRequestReader, uc user.UserUsecase) Handler {
-	return &handler{kll, uc}
+func NewHandler(uc user.Usecase) Handler {
+	return &handler{uc}
 }
