@@ -24,12 +24,12 @@ var _ = dig.Name
 func main() {
 	var err error
 
-	kurole := make(map[string][]string)
-	kurole[config.ADMIN] = []string{config.ADMIN}
-	kurole[config.MERCHANT] = []string{config.ADMIN, config.MERCHANT}
-	kurole[config.CONSUMER] = []string{config.ADMIN, config.MERCHANT, config.CONSUMER}
+	myrole := make(map[string][]string)
+	myrole[config.ADMIN] = []string{config.ADMIN}
+	myrole[config.MERCHANT] = []string{config.ADMIN, config.MERCHANT}
+	myrole[config.CONSUMER] = []string{config.ADMIN, config.MERCHANT, config.CONSUMER}
 
-	middleware.InitApplication(kurole, "mark-one")
+	middleware.InitApplication(myrole, "mark-one")
 	middleware.InitJWTMiddlewareCustom([]byte(config.SIGNATURE), jwt.SigningMethodHS512)
 
 	gin.SetMode(gin.DebugMode)
