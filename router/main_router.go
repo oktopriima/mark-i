@@ -9,7 +9,9 @@
 package router
 
 import (
+	"github.com/oktopriima/mark-i/app/config"
 	"github.com/oktopriima/mark-i/httphandler/auth"
+	"github.com/oktopriima/mark-i/httphandler/role"
 	"github.com/oktopriima/mark-i/httphandler/user"
 	"github.com/oktopriima/mark-i/libraries/middleware"
 	"github.com/gin-gonic/gin"
@@ -19,9 +21,12 @@ func InvokeRoute(
 	engine *gin.Engine,
 	auth auth.Handler,
 	user user.Handler,
+	role role.Handler,
 ) {
 
-	markone := engine.Group("api/beta")
+	conf := config.NewConfig()
+
+	markone := engine.Group("api/" + conf.GetString("app.version.tag") + conf.GetString("app.version.value"))
 	markone.Use(gin.Logger())
 	markone.Use(gin.Recovery())
 	markone.Use(gin.ErrorLogger())
@@ -40,6 +45,12 @@ func InvokeRoute(
 		me := markone.Group("me")
 		me.Use(middleware.MyAuth(true))
 		me.GET("", user.FindHandler)
+	}
+
+	/** role route group */
+	{
+		roleroute := markone.Group("roles")
+		roleroute.GET("/generate", role.GenerateHandler)
 	}
 
 }
