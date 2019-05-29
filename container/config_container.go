@@ -44,8 +44,8 @@ func BuildConfigProvider(container *dig.Container) *dig.Container {
 		panic(err)
 	}
 
-	if err = container.Provide(func() httpresponse.KulinaRequestReader {
-		return httpresponse.NewKulinaRequestReader()
+	if err = container.Provide(func() httpresponse.RequestReader {
+		return httpresponse.NewRequestReader()
 	}); err != nil {
 		panic(err)
 	}
@@ -55,12 +55,6 @@ func BuildConfigProvider(container *dig.Container) *dig.Container {
 	}); err != nil {
 		panic(err)
 	}
-
-	// if err = container.Provide(func() gin.HandlerFunc {
-	// 	return config.InitLogger()
-	// }); err != nil {
-	// 	panic(err)
-	// }
 
 	return container
 }

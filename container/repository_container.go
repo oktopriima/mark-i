@@ -24,5 +24,9 @@ func BuildRepositoryProvider(container *dig.Container) *dig.Container {
 		panic(err)
 	}
 
+	if err = container.Provide(services.NewRoleServices); err != nil {
+		panic(err)
+	}
+
 	return container
 }
