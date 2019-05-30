@@ -14,7 +14,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/oktopriima/mark-i/app/config"
 	"github.com/oktopriima/mark-i/libraries/httpresponse"
 	jwtmiddleware "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
@@ -29,15 +28,15 @@ var appname string
 /**
 * param bool
  */
-func MyAuth(withrole bool) gin.HandlerFunc {
+func MyAuth(role ...string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		if err := checkJWTToken(ctx.Request); err != nil {
 			abortMission(ctx, err)
 			return
 		}
 
-		if withrole {
-			if err := checkRole(ctx.Request); err != nil {
+		if len(role) == 1 {
+			if err := checkRole(ctx.Request, role[0]); err != nil {
 				abortMission(ctx, err)
 				return
 			}
@@ -128,12 +127,7 @@ func checkJWTToken(r *http.Request) error {
 	return nil
 }
 
-func checkRole(r *http.Request) (err error) {
-	var roles string
-
-	cfg := config.NewConfig()
-	roles = cfg.GetString(appname + ".allowed-role")
-
+func checkRole(r *http.Request, roles string) (err error) {
 	tokenRole, err := ExtractToken(r, "role")
 	if err != nil || tokenRole == nil {
 		err = errors.New("you don't have permission to access this route !")
@@ -154,6 +148,8 @@ func checkRole(r *http.Request) (err error) {
 			break
 		}
 	}
+
+	fmt.Println(tokenRole, roles)
 	err = errors.New("Access denied !")
 	return err
 }
