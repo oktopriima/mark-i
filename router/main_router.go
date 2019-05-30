@@ -45,7 +45,7 @@ func InvokeRoute(
 	/** profile route group */
 	{
 		me := markone.Group("me")
-		me.Use(middleware.MyAuth(true))
+		me.Use(middleware.MyAuth())
 		me.GET("", user.FindHandler)
 	}
 
@@ -58,7 +58,7 @@ func InvokeRoute(
 	/** roleuser route group */
 	{
 		roleuserroute := markone.Group("roleuser")
-		roleuserroute.Use(middleware.MyAuth(true))
+		roleuserroute.Use(middleware.MyAuth(config.ADMIN))
 		roleuserroute.POST("", roleuser.CreateHandler)
 		roleuserroute.DELETE(":id", roleuser.DeleteHandler)
 	}
