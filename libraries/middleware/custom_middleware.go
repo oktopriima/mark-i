@@ -24,19 +24,19 @@ var jwtMiddleware *jwtmiddleware.JWTMiddleware
 var signingKey []byte
 var myrole map[string][]string
 
-func InitRole(roles map[string][]string)  {
+func InitRole(roles map[string][]string) {
 	myrole = roles
 }
 
-func MyAuth(role ...string) gin.HandlerFunc {
+func MyAuth(roles ...string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		if err := checkJWTToken(ctx.Request); err != nil {
 			abortMission(ctx, err)
 			return
 		}
 
-		if len(role) == 1 {
-			if err := checkRole(ctx.Request, role[0]); err != nil {
+		for _, role := range roles {
+			if err := checkRole(ctx.Request, role); err != nil {
 				abortMission(ctx, err)
 				return
 			}
