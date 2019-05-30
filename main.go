@@ -29,7 +29,7 @@ func main() {
 	myrole[config.MERCHANT] = []string{config.ADMIN, config.MERCHANT}
 	myrole[config.CONSUMER] = []string{config.ADMIN, config.MERCHANT, config.CONSUMER}
 
-	middleware.InitApplication(myrole, "mark-one")
+	middleware.InitRole(myrole)
 	middleware.InitJWTMiddlewareCustom([]byte(config.SIGNATURE), jwt.SigningMethodHS512)
 
 	gin.SetMode(gin.DebugMode)

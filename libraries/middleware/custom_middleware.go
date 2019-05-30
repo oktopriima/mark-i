@@ -23,11 +23,11 @@ import (
 var jwtMiddleware *jwtmiddleware.JWTMiddleware
 var signingKey []byte
 var myrole map[string][]string
-var appname string
 
-/**
-* param bool
- */
+func InitRole(roles map[string][]string)  {
+	myrole = roles
+}
+
 func MyAuth(role ...string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		if err := checkJWTToken(ctx.Request); err != nil {
