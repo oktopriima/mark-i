@@ -52,11 +52,19 @@ func (uc *usecase) FacebookLogin(request AuthRequest) (AuthResponse, error) {
 		return nil, errors.New("user didn't match")
 	}
 
+	var role string
+	roles, err := uc.findRoleUser(user)
+	if err != nil {
+		role = config.CONSUMER
+	} else {
+		role = roles.Value
+	}
+
 	/** generate parameter for Custom JWT */
 	param := middleware.TokenStructure{}
 	param.UserID = user.ID
 	param.Email = user.Email
-	param.Role = "consumer"
+	param.Role = role
 
 	auth := middleware.NewCustomAuth([]byte(config.SIGNATURE))
 	token, err := auth.GenerateToken(param)

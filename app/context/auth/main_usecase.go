@@ -56,15 +56,21 @@ type EmailLoginRequest interface {
 type usecase struct {
 	userRepo       repository.UserRepository
 	userSocialRepo repository.UserSocialRepository
+	roleUserRepo   repository.RoleUserRepository
+	roleRepo       repository.RoleRepository
 	db             *gorm.DB
 }
 
 func NewUsecase(userRepo repository.UserRepository,
 	userSocialRepo repository.UserSocialRepository,
+	roleUserRepo repository.RoleUserRepository,
+	roleRepo repository.RoleRepository,
 	db *gorm.DB) Usecase {
 	return &usecase{
 		userRepo,
 		userSocialRepo,
+		roleUserRepo,
+		roleRepo,
 		db,
 	}
 }
@@ -111,4 +117,21 @@ func (uc *usecase) updateLastLogin(users *model.Users) (err error) {
 
 	err = uc.userRepo.Update(users)
 	return
+}
+
+func (uc *usecase) findRoleUser(user *model.Users) (m *model.Role, err error) {
+	criteria := make(map[string]interface{})
+	criteria["user_id"] = user.ID
+
+	roleuser, err := uc.roleUserRepo.FindOneBy(criteria)
+	if err != nil {
+		return nil, err
+	}
+
+	role, err := uc.roleRepo.Find(roleuser.RoleID)
+	if err != nil {
+		return nil, err
+	}
+
+	return role, nil
 }
