@@ -8,7 +8,10 @@
 
 package config
 
+/** role list */
 const ADMIN = "administrator"
 const MERCHANT = "merchant"
 const CONSUMER = "consumer"
-const SIGNATURE  = "Kul104"
+
+/** signature key for JWT */
+const SIGNATURE = "Kul104"
