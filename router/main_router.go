@@ -26,6 +26,8 @@ func InvokeRoute(
 	roleuser roleuser.Handler,
 ) {
 
+	engine.NoRoute()
+
 	conf := config.NewConfig()
 
 	markone := engine.Group("api/" + conf.GetString("app.version.tag") + conf.GetString("app.version.value"))
