@@ -10,6 +10,7 @@ package container
 
 import (
 	"github.com/oktopriima/mark-i/httphandler/auth"
+	"github.com/oktopriima/mark-i/httphandler/extra"
 	"github.com/oktopriima/mark-i/httphandler/role"
 	"github.com/oktopriima/mark-i/httphandler/roleuser"
 	"github.com/oktopriima/mark-i/httphandler/user"
@@ -18,6 +19,10 @@ import (
 
 func BuildHttpHandlerProvider(container *dig.Container) *dig.Container {
 	var err error
+
+	if err = container.Provide(extra.NewHandler); err != nil {
+		panic(err)
+	}
 
 	if err = container.Provide(auth.NewHandler); err != nil {
 		panic(err)
