@@ -16,14 +16,14 @@ type CreateRequest interface {
 }
 
 type CreateResponse interface {
-	GetData() *model.RoleUser
+	GetData() *model.UserRole
 }
 
 func (uc *usecase) Create(request CreateRequest) (CreateResponse, error) {
 	tx := uc.db.Begin()
-	m := new(model.RoleUser)
-	m.UserID = request.GetUserID()
-	m.RoleID = request.GetRoleID()
+	m := new(model.UserRole)
+	m.UsersID = request.GetUserID()
+	m.RolesID = request.GetRoleID()
 
 	resp, err := uc.roleUserRepo.Create(m, tx)
 	if err != nil {

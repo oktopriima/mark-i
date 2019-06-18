@@ -49,12 +49,11 @@ func (srv *userServices) Update(users *model.Users) (err error) {
 
 func (srv *userServices) Find(ID int64) (*model.Users, error) {
 	m := new(model.Users)
-	row := srv.db.Table("users").Select("*").Where("id = ?", ID).Row()
-	err := row.Scan(&m.ID, &m.Name, &m.Username, &m.Email, &m.Phone, &m.Password, &m.LastLogin, &m.SecondaryEmail,
-		&m.IsVerified, &m.Avatar, &m.CreatedAt, &m.UpdatedAt)
-	if err != nil {
+	res := srv.db.Where("id=?", ID).Find(&m).Related(&m.Socials).Related(&m.RoleUsers).Scan(&m)
+	if err := res.Error; err != nil {
 		return nil, err
 	}
+
 	return m, nil
 }
 

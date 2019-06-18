@@ -14,9 +14,9 @@ import (
 )
 
 type RoleUserRepository interface {
-	Create(user *model.RoleUser, tx *gorm.DB) (*model.RoleUser, error)
-	Update(user *model.RoleUser, tx *gorm.DB) error
-	Delete(user *model.RoleUser, tx *gorm.DB) error
-	Find(ID int64) (*model.RoleUser, error)
-	FindOneBy(criteria map[string]interface{}) (*model.RoleUser, error)
+	Create(user *model.UserRole, tx *gorm.DB) (*model.UserRole, error)
+	Update(user *model.UserRole, tx *gorm.DB) error
+	Delete(user *model.UserRole, tx *gorm.DB) error
+	Find(ID int64) (*model.UserRole, error)
+	FindOneBy(criteria map[string]interface{}) (*model.UserRole, error)
 }

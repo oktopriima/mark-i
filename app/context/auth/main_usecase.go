@@ -128,7 +128,7 @@ func (uc *usecase) findRoleUser(user *model.Users) (m *model.Role, err error) {
 		return nil, err
 	}
 
-	role, err := uc.roleRepo.Find(roleuser.RoleID)
+	role, err := uc.roleRepo.Find(roleuser.RolesID)
 	if err != nil {
 		return nil, err
 	}

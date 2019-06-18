@@ -11,9 +11,9 @@ package roleuser
 import "github.com/oktopriima/mark-i/domain/model"
 
 type createResponse struct {
-	Data *model.RoleUser
+	Data *model.UserRole
 }
 
-func (resp createResponse) GetData() *model.RoleUser {
+func (resp createResponse) GetData() *model.UserRole {
 	return resp.Data
 }
