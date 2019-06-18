@@ -10,10 +10,11 @@ package model
 
 import "time"
 
-type RoleUser struct {
+type UserRole struct {
 	ID        int64     `json:"id"`
-	UserID    int64     `json:"user_id"`
-	RoleID    int64     `json:"role_id"`
+	UsersID   int64     `json:"users_id"`
+	RolesID   int64     `json:"roles_id"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	Roles     Role      `json:"roles"`
 }
